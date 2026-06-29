@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en" style="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Community Leaderboard | CivicLens AI</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Playfair+Display:wght@600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-container": "#97f592",
+            "on-primary-fixed-variant": "#005312",
+            "tertiary-container": "#9cd4a7",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed-variant": "#1c502e",
+            "on-secondary": "#ffffff",
+            "inverse-primary": "#16e546",
+            "surface-container-highest": "#dae6d4",
+            "primary-fixed-dim": "#16e546",
+            "outline-variant": "#bacbb4",
+            "secondary": "#026e1c",
+            "primary-container": "#19e647",
+            "on-primary": "#ffffff",
+            "primary-fixed": "#71ff75",
+            "on-secondary-container": "#0c7320",
+            "surface-container": "#e6f1df",
+            "surface-container-lowest": "#ffffff",
+            "on-error-container": "#93000a",
+            "surface-container-high": "#e0ecda",
+            "primary": "#006e1b",
+            "on-surface": "#141e13",
+            "on-primary-container": "#006117",
+            "surface": "#f1fdea",
+            "error-container": "#ffdad6",
+            "secondary-fixed-dim": "#7edb7b",
+            "on-primary-fixed": "#002204",
+            "on-tertiary-container": "#295d39",
+            "surface-variant": "#dae6d4",
+            "on-background": "#141e13",
+            "tertiary-fixed-dim": "#9cd4a6",
+            "surface-bright": "#f1fdea",
+            "on-tertiary-fixed": "#00210c",
+            "on-tertiary": "#ffffff",
+            "background": "#f1fdea",
+            "tertiary": "#356944",
+            "inverse-on-surface": "#e9f4e2",
+            "inverse-surface": "#293327",
+            "surface-tint": "#006e1b",
+            "surface-container-low": "#ecf7e5",
+            "on-secondary-fixed-variant": "#005312",
+            "on-error": "#ffffff",
+            "surface-dim": "#d2ddcc",
+            "on-secondary-fixed": "#002204",
+            "on-surface-variant": "#3c4b39",
+            "tertiary-fixed": "#b7f0c1",
+            "secondary-fixed": "#99f894",
+            "outline": "#6c7b67"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "base": "8px",
+            "sm": "12px",
+            "lg": "48px",
+            "md": "24px",
+            "xl": "80px",
+            "xs": "4px"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "headline-lg": ["Playfair Display"],
+            "label-md": ["Inter"],
+            "headline-md": ["Playfair Display"],
+            "body-md": ["Inter"]
+          },
+          "fontSize": {
+            "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "headline-lg": ["40px", { "lineHeight": "1.2", "fontWeight": "700" }],
+            "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 32px 0 rgba(0, 110, 27, 0.05);
+    }
+
+    .gold-glow {
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+    }
+
+    .ai-glow {
+      box-shadow: 0 0 30px rgba(25, 230, 71, 0.2);
+      border: 1px solid rgba(25, 230, 71, 0.5);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../frontend_config.js"></script>
+</head>
+
+<body class="flex bg-surface text-on-surface font-body-md antialiased overflow-x-hidden min-h-screen">
+  <!-- SideNavBar (Unified Sidebar Component) -->
+  <aside
+    class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-dim shadow-none py-md px-sm border-r border-outline-variant/30 z-40">
+    <div class="flex items-center gap-3 px-4 mb-xl mt-4">
+      <span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+      <div>
+        <h1 class="font-headline-md text-[20px] font-bold text-on-surface leading-tight">CivicLens AI</h1>
+        <p class="font-label-md text-xs text-on-surface-variant">Premium SaaS Platform</p>
+      </div>
+    </div>
+    <div class="flex-1 space-y-2">
+      
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_user_dashboard/index.html">
+        <span class="material-symbols-outlined" style="">dashboard</span>
+        <span class="font-label-md">Dashboard</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_explore_community_issues/index.html">
+        <span class="material-symbols-outlined" style="">explore</span>
+        <span class="font-label-md">Explore Issues</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all bg-primary text-white font-bold shadow-sm shadow-primary/20"
+        href="../civiclens_ai_leaderboard_annotated_updates/index.html">
+        <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">leaderboard</span>
+        <span class="font-label-md">Leaderboard</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_my_active_reports_with_sidebar/index.html">
+        <span class="material-symbols-outlined" style="">assignment</span>
+        <span class="font-label-md">Active Reports</span>
+      </a>
+    </div>
+    <div class="mt-auto space-y-4 mb-4">
+      <div class="border-t border-outline-variant/30 pt-4 space-y-1">
+        <a class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 transition-colors duration-200 rounded-xl"
+          href="#">
+          <span class="material-symbols-outlined text-sm">help</span>
+          <span class="font-label-md text-sm">Help Center</span>
+        </a>
+        <a id="logout-sidebar-btn" class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 transition-colors duration-200 rounded-xl"
+          href="../civiclens_ai_landing_page_enhanced_hero/index.html">
+          <span class="material-symbols-outlined text-sm">logout</span>
+          <span class="font-label-md text-sm">Log Out</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+  
+  <!-- TopNavBar removed in favor of unified sidebar -->
+  <div class="flex w-full max-w-[1600px] mx-auto">
+    <!-- SideNavBar -->
+    <!-- Main Content Canvas -->
+    <main class="flex-1 md:ml-64 w-full px-4 md:px-lg py-lg max-w-7xl mx-auto">
+      <!-- 1. Header -->
+      <header class="flex flex-col md:flex-row items-start md:items-center justify-between gap-md mb-xl">
+        <div>
+          <h1 class="font-headline-lg text-headline-lg text-primary mb-2">Community Leaderboard</h1>
+          <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Recognizing citizens who are making
+            their communities cleaner, safer and smarter.</p>
+        </div>
+      </header>
+      <!-- 2. Top 3 Hero Bento -->
+      <section id="leaderboard-top3" class="grid grid-cols-1 md:grid-cols-3 gap-md items-end mb-xl h-auto md:h-[400px] justify-center">
+      </section>
+    </main>
+  </div>
+  <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4" id="current-user-widget">
+  </div>
+  <script src="../app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const user = await window.CivicDB.getCurrentUser();
+        const leaderboard = await window.CivicDB.getLeaderboard();
+        
+        const top3 = leaderboard.slice(0, 3);
+        const section = document.getElementById('leaderboard-top3');
+        section.innerHTML = '';
+        
+        const renderCard = (u, rank, orderClass, heightClass, badgeColor) => {
+          let badgeIcon = '🥇';
+          if (rank === 2) badgeIcon = '🥈';
+          if (rank === 3) badgeIcon = '🥉';
+          
+          return `
+            <div class="glass-panel rounded-xl p-md flex flex-col items-center text-center transform transition-all hover:-translate-y-2 ${orderClass} ${heightClass} ${rank === 1 ? 'gold-glow z-10 relative' : ''}">
+              ${rank === 1 ? '<div class="absolute -top-6 left-1/2 -translate-x-1/2"><span class="material-symbols-outlined text-4xl text-[#d4af37]" style=\'font-variation-settings: "FILL" 1;\'>workspace_premium</span></div>' : ''}
+              <div class="relative mb-4 ${rank === 1 ? 'mt-4' : ''}">
+                <img class="${rank === 1 ? 'w-28 h-28' : rank === 2 ? 'w-20 h-20' : 'w-16 h-16'} rounded-full object-cover border-4 ${rank === 1 ? 'border-[#d4af37]/30' : 'border-surface'}" src="${u.avatar || 'https://via.placeholder.com/150'}" alt="${u.name}">
+                <div class="absolute ${rank === 1 ? '-bottom-4' : '-bottom-3'} left-1/2 -translate-x-1/2 ${badgeColor} px-3 py-1 rounded-full ${rank === 1 ? 'text-sm text-white' : 'text-xs text-on-surface'} font-bold shadow-sm">
+                  #${rank}
+                </div>
+              </div>
+              <h3 class="font-headline-md ${rank === 1 ? 'text-[28px]' : rank === 2 ? 'text-[24px]' : 'text-[20px]'} font-bold text-on-surface mb-1">${u.name.split(' ')[0]} ${u.name.split(' ')[1] ? u.name.split(' ')[1][0] + '.' : ''}</h3>
+              <p class="font-label-md text-label-md mb-3" style="color: ${rank === 1 ? '#b8952a' : rank === 2 ? 'var(--color-secondary)' : '#cd7f32'}">${badgeIcon} ${u.rank || 'Community Hero'}</p>
+              <div class="${rank === 1 ? 'text-4xl mb-6' : rank === 2 ? 'text-2xl mb-4' : 'text-xl mb-4'} font-bold text-primary">${u.score || u.civic_score || 0} <span class="text-xs font-normal text-on-surface-variant">pts</span></div>
+              <div class="flex gap-4 text-sm w-full justify-center ${rank === 1 ? 'bg-surface-container-lowest/50 py-3 rounded-lg' : 'opacity-80'}">
+                <div class="text-center">
+                  <div class="font-bold">${u.reports_submitted || Math.floor(Math.random() * 50)}</div>
+                  <div class="text-xs">Reports</div>
+                </div>
+                <div class="text-center">
+                  <div class="font-bold">${u.issues_resolved || Math.floor(Math.random() * 30)}</div>
+                  <div class="text-xs">Resolved</div>
+                </div>
+              </div>
+            </div>
+          `;
+        };
+        
+        if (top3[1]) section.innerHTML += renderCard(top3[1], 2, 'order-2 md:order-1', 'md:h-[320px]', 'bg-surface-container-highest');
+        if (top3[0]) section.innerHTML += renderCard(top3[0], 1, 'order-1 md:order-2', 'md:h-[380px]', 'bg-[#d4af37]');
+        if (top3[2]) section.innerHTML += renderCard(top3[2], 3, 'order-3 md:order-3', 'md:h-[300px]', 'bg-surface-container-highest');
+        
+        if (user) {
+          const rankIcons = {
+            'Community Hero': '👑',
+            'Civic Champion': '🥇',
+            'Active Citizen': '🥈',
+            'Newcomer': '🥉'
+          };
+          
+          let nextRank = 'Civic Champion';
+          let progress = 45;
+          if (user.civic_score < 100) { nextRank = 'Active Citizen'; progress = (user.civic_score / 100) * 100; }
+          else if (user.civic_score < 300) { nextRank = 'Civic Champion'; progress = ((user.civic_score - 100) / 200) * 100; }
+          else if (user.civic_score < 600) { nextRank = 'Community Hero'; progress = ((user.civic_score - 300) / 300) * 100; }
+          else { nextRank = 'Max Level'; progress = 100; }
+          
+          document.getElementById('current-user-widget').innerHTML = `
+            <div class="glass-panel rounded-xl p-4 flex items-center justify-between gap-4 shadow-lg border-primary/20">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-2xl">${rankIcons[user.rank] || '🥉'}</div>
+                <div>
+                  <div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Current Rank</div>
+                  <div class="font-headline-md text-lg text-secondary">${user.rank || 'Newcomer'}</div>
+                </div>
+              </div>
+              <div class="h-10 w-px bg-outline-variant/30"></div>
+              <div class="flex-1">
+                <div>
+                  <div class="flex justify-between items-end mb-1"><span class="text-xs font-bold text-on-surface-variant">${user.civic_score} <span class="font-normal">pts</span></span><span class="text-[10px] text-primary font-medium">Next: ${nextRank}</span></div>
+                  <div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+                    <div class="bg-primary h-full rounded-full" style="width: ${progress}%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          document.getElementById('current-user-widget').style.display = 'none';
+        }
+      } catch(err) {
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+
+</html>

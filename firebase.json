@@ -1,0 +1,72 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      ".dockerignore",
+      "Dockerfile",
+      "node_modules/**",
+      "uploads/**",
+      "server.js",
+      "app.js",
+      "package*.json",
+      ".env*",
+      "*.log",
+      "*.md",
+      "deploy.*"
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "rewrites": [
+      {
+        "source": "/civiclens_ai_landing_page_enhanced_hero",
+        "destination": "/civiclens_ai_landing_page_enhanced_hero/index.html"
+      },
+      {
+        "source": "/civiclens_ai_user_dashboard",
+        "destination": "/civiclens_ai_user_dashboard/index.html"
+      },
+      {
+        "source": "/civiclens_ai_explore_community_issues",
+        "destination": "/civiclens_ai_explore_community_issues/index.html"
+      },
+      {
+        "source": "/civiclens_ai_leaderboard_annotated_updates",
+        "destination": "/civiclens_ai_leaderboard_annotated_updates/index.html"
+      },
+      {
+        "source": "/civiclens_ai_my_active_reports_with_sidebar",
+        "destination": "/civiclens_ai_my_active_reports_with_sidebar/index.html"
+      },
+      {
+        "source": "/civiclens_ai_municipality_operations_dashboard_demo",
+        "destination": "/civiclens_ai_municipality_operations_dashboard_demo/index.html"
+      },
+      {
+        "source": "/civiclens_ai_report_issue",
+        "destination": "/civiclens_ai_report_issue/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(html)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(js|css)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }
+        ]
+      }
+    ]
+  }
+}

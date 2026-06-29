@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>My Active Reports - CivicLens AI</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:wght@400;500;600;700&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-fixed-dim": "#7edb7b",
+            "on-secondary-fixed-variant": "#005312",
+            "background": "#f1fdea",
+            "surface-container-high": "#e0ecda",
+            "on-tertiary-fixed-variant": "#1c502e",
+            "primary-fixed-dim": "#16e546",
+            "on-tertiary-fixed": "#00210c",
+            "secondary": "#026e1c",
+            "outline-variant": "#bacbb4",
+            "tertiary-fixed": "#b7f0c1",
+            "surface-container": "#e6f1df",
+            "inverse-on-surface": "#e9f4e2",
+            "on-surface": "#141e13",
+            "on-error": "#ffffff",
+            "surface-tint": "#006e1b",
+            "on-primary": "#ffffff",
+            "inverse-surface": "#293327",
+            "surface-variant": "#dae6d4",
+            "surface-container-highest": "#dae6d4",
+            "on-secondary-fixed": "#002204",
+            "on-primary-fixed-variant": "#005312",
+            "on-primary-container": "#006117",
+            "primary-container": "#19e647",
+            "tertiary": "#356944",
+            "error": "#ba1a1a",
+            "secondary-container": "#97f592",
+            "on-secondary-container": "#0c7320",
+            "tertiary-container": "#9cd4a7",
+            "on-primary-fixed": "#002204",
+            "primary-fixed": "#71ff75",
+            "primary": "#006e1b",
+            "outline": "#6c7b67",
+            "on-background": "#141e13",
+            "surface-dim": "#d2ddcc",
+            "on-tertiary-container": "#295d39",
+            "tertiary-fixed-dim": "#9cd4a6",
+            "on-surface-variant": "#3c4b39",
+            "surface-bright": "#f1fdea",
+            "inverse-primary": "#16e546",
+            "surface": "#f1fdea",
+            "on-tertiary": "#ffffff",
+            "on-error-container": "#93000a",
+            "surface-container-lowest": "#ffffff",
+            "error-container": "#ffdad6",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#99f894",
+            "surface-container-low": "#ecf7e5"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "xs": "4px",
+            "sm": "12px",
+            "md": "24px",
+            "lg": "48px",
+            "base": "8px",
+            "xl": "80px"
+          },
+          "fontFamily": {
+            "body-md": ["Inter"],
+            "headline-lg": ["Playfair Display"],
+            "label-md": ["Inter"],
+            "headline-md": ["Playfair Display"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+            "headline-lg": ["40px", { "lineHeight": "1.2", "fontWeight": "700" }],
+            "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .glowing-badge {
+      box-shadow: 0 0 10px rgba(25, 230, 71, 0.5);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../frontend_config.js"></script>
+</head>
+
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+  <!-- SideNavBar (Unified Sidebar Component) -->
+  <aside
+    class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-dim shadow-none py-md px-sm border-r border-outline-variant/30 z-40">
+    <div class="flex items-center gap-3 px-4 mb-xl mt-4">
+      <span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+      <div>
+        <h1 class="font-headline-md text-[20px] font-bold text-on-surface leading-tight">CivicLens AI</h1>
+        <p class="font-label-md text-xs text-on-surface-variant">Premium SaaS Platform</p>
+      </div>
+    </div>
+    <div class="flex-1 space-y-2">
+      
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_user_dashboard/index.html">
+        <span class="material-symbols-outlined" style="">dashboard</span>
+        <span class="font-label-md">Dashboard</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_explore_community_issues/index.html">
+        <span class="material-symbols-outlined" style="">explore</span>
+        <span class="font-label-md">Explore Issues</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_leaderboard_annotated_updates/index.html">
+        <span class="material-symbols-outlined" style="">leaderboard</span>
+        <span class="font-label-md">Leaderboard</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all bg-primary text-white font-bold shadow-sm shadow-primary/20"
+        href="../civiclens_ai_my_active_reports_with_sidebar/index.html">
+        <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">assignment</span>
+        <span class="font-label-md">Active Reports</span>
+      </a>
+    </div>
+    <div class="mt-auto space-y-4 mb-4">
+      <div class="border-t border-outline-variant/30 pt-4 space-y-1">
+        <a class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 transition-colors duration-200 rounded-xl"
+          href="#">
+          <span class="material-symbols-outlined text-sm">help</span>
+          <span class="font-label-md text-sm">Help Center</span>
+        </a>
+        <a id="logout-sidebar-btn" class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 transition-colors duration-200 rounded-xl"
+          href="../civiclens_ai_landing_page_enhanced_hero/index.html">
+          <span class="material-symbols-outlined text-sm">logout</span>
+          <span class="font-label-md text-sm">Log Out</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+  
+  
+  <!-- SideNavBar (Unified Sidebar Component) -->
+  <aside
+    class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-dim shadow-none py-md px-sm border-r border-outline-variant/30 z-40">
+    <div class="flex items-center gap-3 px-4 mb-xl mt-4">
+      <span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+      <div>
+        <h1 class="font-headline-md text-[20px] font-bold text-on-surface leading-tight">CivicLens AI</h1>
+        <p class="font-label-md text-xs text-on-surface-variant">Premium SaaS Platform</p>
+      </div>
+    </div>
+    <div class="flex-1 space-y-2">
+      
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_user_dashboard/index.html">
+        <span class="material-symbols-outlined" style="">dashboard</span>
+        <span class="font-label-md">Dashboard</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_explore_community_issues/index.html">
+        <span class="material-symbols-outlined" style="">explore</span>
+        <span class="font-label-md">Explore Issues</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_leaderboard_annotated_updates/index.html">
+        <span class="material-symbols-outlined" style="">leaderboard</span>
+        <span class="font-label-md">Leaderboard</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all bg-primary text-white font-bold shadow-sm shadow-primary/20"
+        href="../civiclens_ai_my_active_reports_with_sidebar/index.html">
+        <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">assignment</span>
+        <span class="font-label-md">Active Reports</span>
+      </a>
+    </div>
+    <div class="mt-auto space-y-4 mb-4">
+      <div class="border-t border-outline-variant/30 pt-4 space-y-1">
+        <a class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 transition-colors duration-200 rounded-xl"
+          href="#">
+          <span class="material-symbols-outlined text-sm">help</span>
+          <span class="font-label-md text-sm">Help Center</span>
+        </a>
+        <a id="logout-sidebar-btn" class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 transition-colors duration-200 rounded-xl"
+          href="../civiclens_ai_landing_page_enhanced_hero/index.html">
+          <span class="material-symbols-outlined text-sm">logout</span>
+          <span class="font-label-md text-sm">Log Out</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+  
+  <!-- Main Wrapper -->
+  <div class="flex-1 flex flex-col md:ml-64 relative min-h-screen">
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-md md:px-lg py-xl flex flex-col space-y-xl">
+      <!-- Header Section -->
+      <header class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-md md:space-y-0">
+        <div class="max-w-2xl">
+          <h1 class="font-headline-lg text-headline-lg text-on-surface mb-sm">My Active Reports</h1>
+          <p class="font-body-lg text-body-lg text-on-surface-variant">Track the progress of every issue you've reported
+            and monitor its impact on your community.</p>
+        </div>
+        <a href="../civiclens_ai_report_issue/index.html" class="bg-primary text-on-primary px-6 py-3 rounded-full font-label-md hover:bg-primary/90 transition-transform active:scale-95 shadow-sm whitespace-nowrap text-center">
+          Report New Issue
+        </a>
+      </header>
+      <!-- Summary Cards -->
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+        <div class="glass-panel rounded-xl p-md flex flex-col justify-between">
+          <div class="flex justify-between items-start mb-md">
+            <span class="material-symbols-outlined text-primary text-3xl">assignment</span>
+            <span class="text-secondary text-sm font-bold flex items-center"><span
+                class="material-symbols-outlined text-sm mr-xs">trending_up</span> +12%</span>
+          </div>
+          <div>
+            <div class="font-headline-md text-headline-md text-on-surface">24</div>
+            <div class="font-label-md text-label-md text-on-surface-variant">Total Reports</div>
+          </div>
+        </div>
+        <div class="glass-panel rounded-xl p-md flex flex-col justify-between">
+          <div class="flex justify-between items-start mb-md">
+            <span class="material-symbols-outlined text-primary text-3xl">pending</span>
+            <span class="text-secondary text-sm font-bold flex items-center"><span
+                class="material-symbols-outlined text-sm mr-xs">trending_down</span> -5%</span>
+          </div>
+          <div>
+            <div class="font-headline-md text-headline-md text-on-surface">8</div>
+            <div class="font-label-md text-label-md text-on-surface-variant">Open Issues</div>
+          </div>
+        </div>
+        <div class="glass-panel rounded-xl p-md flex flex-col justify-between">
+          <div class="flex justify-between items-start mb-md">
+            <span class="material-symbols-outlined text-primary text-3xl">autorenew</span>
+            <span class="text-secondary text-sm font-bold flex items-center"><span
+                class="material-symbols-outlined text-sm mr-xs">trending_up</span> +2%</span>
+          </div>
+          <div>
+            <div class="font-headline-md text-headline-md text-on-surface">12</div>
+            <div class="font-label-md text-label-md text-on-surface-variant">In Progress</div>
+          </div>
+        </div>
+        <div class="glass-panel rounded-xl p-md flex flex-col justify-between">
+          <div class="flex justify-between items-start mb-md">
+            <span class="material-symbols-outlined text-primary text-3xl">star</span>
+            <span class="text-secondary text-sm font-bold flex items-center"><span
+                class="material-symbols-outlined text-sm mr-xs">trending_up</span> +450</span>
+          </div>
+          <div>
+            <div class="font-headline-md text-headline-md text-on-surface">3,250</div>
+            <div class="font-label-md text-label-md text-on-surface-variant">Total Civic Points</div>
+          </div>
+        </div>
+      </section>
+      <!-- Search & Filters -->
+      <!-- Report Cards -->
+      <section class="space-y-lg">
+        <!-- Card 1 -->
+        <article class="glass-panel rounded-xl p-md md:p-lg flex flex-col lg:flex-row gap-lg relative overflow-hidden">
+          <div class="w-full lg:w-1/3 aspect-video lg:aspect-square rounded-xl overflow-hidden relative">
+            <img alt="Pothole issue" class="w-full h-full object-cover"
+              data-alt="A highly detailed photo of a large pothole in a modern suburban street during daytime. Soft natural lighting, realistic textures, surrounded by green trees, conveying a sense of urban need in a serene environment."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgav7YGUyuHMuM8_3Hx2GbXPgaeZ7ZObNFMr6HnCPVHHXQ-SzP2XVabooY0VGrRTfFKOYLhNesB0KFmzGfy7D3X6EsCcze4NEnx92wG7SatU5iRBtjHYJ8z40GkmuUm1RviudMrb1-Lo47PLufNbtUwdsaStVAZFLG82JcUbj2X-9njuvzE2VxpLCN2itvfou882PYFvq082nD7iV36Q2nN7RA0-2RPG2Ulzrm_M1yHmpwqLrAZrwRbO6s4slXIJSvbQNpiK-29Q" />
+            <div
+              class="absolute top-sm left-sm bg-surface/90 backdrop-blur-sm px-sm py-xs rounded-full flex items-center space-x-xs">
+              <div class="w-2 h-2 rounded-full bg-error"></div>
+              <span class="font-label-md text-label-md text-on-surface text-xs">High Severity</span>
+            </div>
+          </div>
+          <div class="w-full lg:w-2/3 flex flex-col justify-between space-y-md">
+            <div>
+              <div class="flex justify-between items-start mb-xs">
+                <span
+                  class="bg-surface-container text-on-surface-variant font-label-md text-label-md px-sm py-xs rounded-full text-xs">Infrastructure</span>
+                <span
+                  class="glowing-badge bg-primary-container text-on-primary-container font-label-md text-label-md px-sm py-xs rounded-full text-xs flex items-center"><span
+                    class="material-symbols-outlined text-sm mr-xs">sync</span> In Progress</span>
+              </div>
+              <h2 class="font-headline-md text-headline-md text-on-surface">Massive Pothole on Oak Street</h2>
+              <p class="font-body-md text-body-md text-on-surface-variant mt-sm">Deep pothole causing traffic slowdowns
+                and potential vehicle damage near the main intersection.</p>
+            </div>
+            <!-- AI Analysis Section -->
+            <div class="bg-surface-container-low rounded-xl p-md border border-tertiary-fixed-dim/30">
+              <div class="flex items-center mb-sm text-primary">
+                <span class="material-symbols-outlined mr-xs">smart_toy</span>
+                <span class="font-label-md text-label-md font-bold">AI Analysis</span>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-sm">
+                <div>
+                  <div class="text-xs text-on-surface-variant font-label-md">Category</div>
+                  <div class="font-label-md text-on-surface">Road Hazard</div>
+                </div>
+                <div>
+                  <div class="text-xs text-on-surface-variant font-label-md">Suggested Dept</div>
+                  <div class="font-label-md text-on-surface">Public Works</div>
+                </div>
+                <div>
+                  <div class="text-xs text-on-surface-variant font-label-md">Confidence</div>
+                  <div class="font-label-md text-primary font-bold">96%</div>
+                </div>
+                <div>
+                  <div class="text-xs text-on-surface-variant font-label-md">Resolution Est.</div>
+                  <div class="font-label-md text-on-surface">5-7 Days</div>
+                </div>
+              </div>
+            </div>
+            <!-- Timeline -->
+            <div class="relative pt-md pb-xs">
+              <div
+                class="absolute left-0 top-1/2 w-full h-1 bg-surface-container-high -z-10 transform -translate-y-1/2 rounded-full">
+              </div>
+              <div class="absolute left-0 top-1/2 w-3/4 h-1 bg-primary -z-10 transform -translate-y-1/2 rounded-full">
+              </div>
+              <div class="flex justify-between items-center text-xs font-label-md text-on-surface-variant">
+                <div class="flex flex-col items-center">
+                  <div class="w-4 h-4 rounded-full bg-primary mb-xs"></div>
+                  <span class="hidden md:block">Reported</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="w-4 h-4 rounded-full bg-primary mb-xs"></div>
+                  <span class="hidden md:block">AI Analyzed</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="w-4 h-4 rounded-full bg-primary mb-xs"></div>
+                  <span class="hidden md:block">Verified</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="w-4 h-4 rounded-full bg-primary glowing-badge border-2 border-surface mb-xs"></div>
+                  <span class="text-primary font-bold hidden md:block">In Progress</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="w-4 h-4 rounded-full bg-surface-container-high mb-xs"></div>
+                  <span class="hidden md:block opacity-50">Resolved</span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-col md:flex-row justify-between items-center pt-sm border-t border-surface-container-high gap-md md:gap-0">
+              <div class="flex items-center space-x-md text-sm text-on-surface-variant">
+                <div class="flex -space-x-2">
+                  <div
+                    class="w-8 h-8 rounded-full bg-tertiary-fixed border-2 border-surface flex items-center justify-center text-xs font-bold text-on-tertiary-fixed">
+                    JD</div>
+                  <div
+                    class="w-8 h-8 rounded-full bg-secondary-fixed border-2 border-surface flex items-center justify-center text-xs font-bold text-on-secondary-fixed">
+                    AK</div>
+                  <div
+                    class="w-8 h-8 rounded-full bg-surface-variant border-2 border-surface flex items-center justify-center text-xs font-bold text-on-surface-variant">
+                    +22</div>
+                </div>
+                <span class="">24 Supporters</span>
+              </div>
+              <div class="flex space-x-sm w-full md:w-auto">
+                <button
+                  class="px-md py-sm rounded-full border border-outline text-on-surface font-label-md hover:bg-surface-variant transition-colors flex-grow md:flex-grow-0 text-center">Edit</button>
+                <button
+                  class="px-md py-sm rounded-full bg-primary text-on-primary font-label-md hover:bg-primary/90 transition-colors flex-grow md:flex-grow-0 text-center">View
+                  Details</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+    <!-- Footer (Shared Component) -->
+    <footer
+      class="bg-surface-container dark:bg-inverse-surface w-full mt-xl rounded-t-lg bg-surface-container-high dark:bg-surface-container-highest flat no shadows flex flex-col md:flex-row justify-between items-center px-lg py-md max-w-7xl mx-auto w-full">
+      <div class="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed-dim mb-md md:mb-0">
+        CivicLens AI
+      </div>
+      <div
+        class="flex flex-wrap justify-center gap-md font-label-md text-label-md text-on-surface-variant dark:text-outline-variant">
+        <a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors Transition-opacity duration-200"
+          href="#">Privacy Policy</a>
+        <a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors Transition-opacity duration-200"
+          href="#">Terms of Service</a>
+        <a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors Transition-opacity duration-200"
+          href="#">Community Guidelines</a>
+        <a class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors Transition-opacity duration-200"
+          href="#">Contact Support</a>
+      </div>
+      <div class="font-label-md text-label-md text-on-surface dark:text-inverse-on-surface mt-md md:mt-0">
+        © 2024 CivicLens AI. Empowering sustainable urban growth.
+      </div>
+    </footer>
+  </div>
+  <script src="../app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const reportsSection = document.querySelector('section.space-y-lg');
+      if (!reportsSection) return;
+
+      try {
+        const user = await window.CivicDB.getCurrentUser();
+        if (!user) return;
+        const reports = await window.CivicDB.getReports({ user_id: user.id });
+        if (!reports || reports.length === 0) {
+            reportsSection.innerHTML = '<p class="text-on-surface-variant p-4">You have no active reports.</p>';
+            return;
+        }
+
+        // Clear existing hardcoded mock cards if we successfully loaded reports
+        reportsSection.innerHTML = '';
+
+        let html = '';
+        reports.forEach(report => {
+          const displayImage = report.image_url || 'https://via.placeholder.com/600x400?text=No+Image';
+          html += `
+          <article class="glass-panel rounded-xl p-md md:p-lg flex flex-col lg:flex-row gap-lg relative overflow-hidden">
+            <div class="w-full lg:w-1/3 aspect-video lg:aspect-square rounded-xl overflow-hidden relative bg-surface-variant flex items-center justify-center">
+              <img src="${displayImage}" class="w-full h-full object-cover" alt="${report.title}" />
+              <div
+                class="absolute top-sm left-sm bg-surface/90 backdrop-blur-sm px-sm py-xs rounded-full flex items-center space-x-xs">
+                <div class="w-2 h-2 rounded-full ${report.severity === 'Critical' || report.severity === 'High' ? 'bg-error' : 'bg-primary'}"></div>
+                <span class="font-label-md text-label-md text-on-surface text-xs">${report.severity || 'Low'} Severity</span>
+              </div>
+            </div>
+            <div class="w-full lg:w-2/3 flex flex-col justify-between space-y-md">
+              <div>
+                <div class="flex justify-between items-start mb-xs">
+                  <span
+                    class="bg-surface-container text-on-surface-variant font-label-md text-label-md px-sm py-xs rounded-full text-xs">${report.category || 'Issue'}</span>
+                  <span
+                    class="glowing-badge bg-primary-container text-on-primary-container font-label-md text-label-md px-sm py-xs rounded-full text-xs flex items-center"><span
+                      class="material-symbols-outlined text-sm mr-xs">sync</span> ${report.status || 'In Progress'}</span>
+                </div>
+                <h2 class="font-headline-md text-headline-md text-on-surface">${report.title || 'New Issue'}</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant mt-sm">${report.description || ''}</p>
+              </div>
+              <!-- AI Analysis Section -->
+              <div class="bg-surface-container-low rounded-xl p-md border border-tertiary-fixed-dim/30">
+                <div class="flex items-center mb-sm text-primary">
+                  <span class="material-symbols-outlined mr-xs">smart_toy</span>
+                  <span class="font-label-md text-label-md font-bold">AI Analysis</span>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-sm">
+                  <div>
+                    <div class="text-xs text-on-surface-variant font-label-md">Category</div>
+                    <div class="font-label-md text-on-surface">${report.category || 'Unknown'}</div>
+                  </div>
+                  <div>
+                    <div class="text-xs text-on-surface-variant font-label-md">Suggested Dept</div>
+                    <div class="font-label-md text-on-surface">${report.department || 'Public Works'}</div>
+                  </div>
+                  <div>
+                    <div class="text-xs text-on-surface-variant font-label-md">Confidence</div>
+                    <div class="font-label-md text-primary font-bold">${report.confidence ? Math.round(report.confidence * 100) : 0}%</div>
+                  </div>
+                  <div>
+                    <div class="text-xs text-on-surface-variant font-label-md">Resolution Est.</div>
+                    <div class="font-label-md text-on-surface">5-7 Days</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+          `;
+        });
+        
+        reportsSection.innerHTML = html;
+      } catch (err) {
+        console.error('Error fetching reports:', err);
+      }
+    });
+  </script>
+</body>
+
+</html>

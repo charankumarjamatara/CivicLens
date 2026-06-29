@@ -1,0 +1,431 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Dashboard - CivicLens AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#005312",
+                        "surface": "#f1fdea",
+                        "on-surface": "#141e13",
+                        "on-background": "#141e13",
+                        "outline-variant": "#bacbb4",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#e6f1df",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e0ecda",
+                        "surface-variant": "#dae6d4",
+                        "inverse-on-surface": "#e9f4e2",
+                        "on-primary-container": "#006117",
+                        "secondary-container": "#97f592",
+                        "on-tertiary-fixed-variant": "#1c502e",
+                        "on-primary": "#ffffff",
+                        "secondary": "#026e1c",
+                        "outline": "#6c7b67",
+                        "on-surface-variant": "#3c4b39",
+                        "secondary-fixed-dim": "#7edb7b",
+                        "tertiary-fixed-dim": "#9cd4a6",
+                        "primary": "#006e1b",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f1fdea",
+                        "surface-container-highest": "#dae6d4",
+                        "on-tertiary-fixed": "#00210c",
+                        "background": "#f1fdea",
+                        "tertiary-fixed": "#b7f0c1",
+                        "surface-tint": "#006e1b",
+                        "on-secondary-container": "#0c7320",
+                        "on-primary-fixed": "#002204",
+                        "primary-container": "#19e647",
+                        "on-error": "#ffffff",
+                        "tertiary": "#356944",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#16e546",
+                        "tertiary-container": "#9cd4a7",
+                        "on-tertiary-container": "#295d39",
+                        "inverse-primary": "#16e546",
+                        "surface-container-low": "#ecf7e5",
+                        "inverse-surface": "#293327",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#d2ddcc",
+                        "on-secondary-fixed": "#002204",
+                        "secondary-fixed": "#99f894",
+                        "on-secondary-fixed-variant": "#005312",
+                        "primary-fixed": "#71ff75",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "md": "24px",
+                        "sm": "12px",
+                        "lg": "48px",
+                        "xs": "4px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Playfair Display", "serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "label-md": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "headline-lg": ["Playfair Display", "serif"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.2", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(0, 110, 27, 0.05);
+        }
+        .organic-gradient {
+            background: linear-gradient(135deg, rgba(236, 247, 229, 0.8) 0%, rgba(218, 230, 212, 0.4) 100%);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #006e1b 0%, #356944 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .heatmap-cell { width: 14px; height: 14px; border-radius: 3px; }
+        .heatmap-0 { background-color: #e6f1df; }
+        .heatmap-1 { background-color: #b7f0c1; }
+        .heatmap-2 { background-color: #7edb7b; }
+        .heatmap-3 { background-color: #19e647; }
+        .heatmap-4 { background-color: #006e1b; }
+        
+        .animated-number {
+            animation: countUp 2s ease-out forwards;
+        }
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .progress-bar-fill {
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../frontend_config.js"></script>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col md:flex-row relative overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- Decorative Background Elements -->
+<div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-primary-container/20 blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-5%] w-[50%] h-[50%] rounded-full bg-tertiary-container/20 blur-[150px]"></div>
+</div>
+
+  <!-- SideNavBar (Unified Sidebar Component) -->
+  <aside
+    class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-dim shadow-none py-md px-sm border-r border-outline-variant/30 z-40">
+    <div class="flex items-center gap-3 px-4 mb-xl mt-4">
+      <span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+      <div>
+        <h1 class="font-headline-md text-[20px] font-bold text-on-surface leading-tight">CivicLens AI</h1>
+        <p class="font-label-md text-xs text-on-surface-variant">Premium SaaS Platform</p>
+      </div>
+    </div>
+    <div class="flex-1 space-y-2">
+      
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all bg-primary text-white font-bold shadow-sm shadow-primary/20"
+        href="../civiclens_ai_user_dashboard/index.html">
+        <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">dashboard</span>
+        <span class="font-label-md">Dashboard</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_explore_community_issues/index.html">
+        <span class="material-symbols-outlined" style="">explore</span>
+        <span class="font-label-md">Explore Issues</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_leaderboard_annotated_updates/index.html">
+        <span class="material-symbols-outlined" style="">leaderboard</span>
+        <span class="font-label-md">Leaderboard</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_my_active_reports_with_sidebar/index.html">
+        <span class="material-symbols-outlined" style="">assignment</span>
+        <span class="font-label-md">Active Reports</span>
+      </a>
+    </div>
+    <div class="mt-auto space-y-4 mb-4">
+      <div class="border-t border-outline-variant/30 pt-4 space-y-1">
+        <a class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 transition-colors duration-200 rounded-xl"
+          href="#">
+          <span class="material-symbols-outlined text-sm">help</span>
+          <span class="font-label-md text-sm">Help Center</span>
+        </a>
+        <a id="logout-sidebar-btn" class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 transition-colors duration-200 rounded-xl"
+          href="../civiclens_ai_landing_page_enhanced_hero/index.html">
+          <span class="material-symbols-outlined text-sm">logout</span>
+          <span class="font-label-md text-sm">Log Out</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+  
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-64 relative min-h-screen">
+<!-- TopNavBar (Floating, Glassmorphism) -->
+<header class="sticky top-4 z-50 flex justify-between items-center px-6 py-3 bg-surface/80 backdrop-blur-md rounded-full mt-4 mx-auto max-w-7xl w-[95%] shadow-sm border border-outline-variant/30">
+<div class="flex items-center md:hidden gap-2">
+<span class="material-symbols-outlined text-primary text-2xl">psychology</span>
+<span class="font-headline-md text-[20px] font-bold text-primary">CivicLens AI</span>
+</div>
+<!-- Removed middle top navigation links in favor of unified sidebar -->
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant rounded-full transition-colors relative group">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="h-8 w-px bg-outline-variant/50 hidden md:block"></div>
+<a href="../civiclens_ai_report_issue/index.html" class="hidden md:flex items-center gap-2 bg-primary text-on-primary px-5 py-2 rounded-full font-label-md hover:bg-on-primary-fixed-variant transition-colors shadow-sm transform hover:scale-95 duration-150 text-center">
+<span class="material-symbols-outlined text-sm">add</span>
+                    Report Issue
+                </a>
+<!-- Mobile Menu Trigger -->
+<button class="md:hidden p-2 text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<!-- Main Dashboard Canvas -->
+<main class="flex-1 p-6 md:p-8 max-w-7xl mx-auto w-full flex flex-col xl:flex-row gap-8 pb-32">
+<!-- Left Column: Primary Content -->
+<div class="flex-1 space-y-8 min-w-0">
+<!-- 1. Welcome Section -->
+<section class="animate-[countUp_0.5s_ease-out]">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 id="welcome-message" class="font-headline-lg text-headline-lg text-on-surface mb-2">Good Morning 👋</h2>
+<p class="font-body-md text-on-surface-variant flex items-center gap-3">
+<span class="">Member since June 2026</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span class="flex items-center gap-1 text-[#d97706] font-medium"><span class="material-symbols-outlined text-sm" style="font-variation-settings: &quot;FILL&quot; 1;">local_fire_department</span> 12 Day Streak</span>
+<span class="w-1 h-1 rounded-full bg-outline hidden sm:block"></span>
+<span class="hidden sm:flex items-center gap-1"><span class="material-symbols-outlined text-sm">location_on</span> Tadepalligudem</span>
+</p>
+</div>
+</div>
+</section>
+<!-- 2. User Overview Cards (Glassmorphism Bento) -->
+<section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="glass-panel p-5 rounded-2xl flex flex-col justify-between group hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined">assignment_turned_in</span>
+</div>
+<span class="flex items-center text-xs font-medium text-secondary"><span class="material-symbols-outlined text-xs">trending_up</span> +2</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface-variant">Reports Submitted</p>
+<h3 id="metric-reports" class="font-headline-md text-3xl font-bold text-on-surface mt-1 animated-number">0</h3>
+</div>
+</div>
+<div class="glass-panel p-5 rounded-2xl flex flex-col justify-between group hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<span class="flex items-center text-xs font-medium text-secondary"><span class="material-symbols-outlined text-xs">trending_up</span> +5</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface-variant">Issues Resolved</p>
+<h3 id="metric-resolved" class="font-headline-md text-3xl font-bold text-on-surface mt-1 animated-number">0</h3>
+</div>
+</div>
+<div class="glass-panel p-5 rounded-2xl flex flex-col justify-between group hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-surface-container rounded-lg text-primary">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<span class="flex items-center text-xs font-medium text-secondary"><span class="material-symbols-outlined text-xs">trending_up</span> +12</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface-variant">Community Verifications</p>
+<h3 id="metric-verifications" class="font-headline-md text-3xl font-bold text-on-surface mt-1 animated-number">0</h3>
+</div>
+</div>
+<div class="glass-panel p-5 rounded-2xl flex flex-col justify-between group hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden">
+<div class="absolute inset-0 bg-primary-container/10"></div>
+<div class="relative z-10 flex justify-between items-start mb-4">
+<div class="p-2 bg-primary text-on-primary rounded-lg shadow-sm">
+<span class="material-symbols-outlined">star</span>
+</div>
+<span class="px-2 py-1 bg-surface rounded-full text-xs font-medium text-primary shadow-sm">Top 10%</span>
+</div>
+<div class="relative z-10">
+<p class="font-label-md text-on-surface-variant">Civic Score</p>
+<h3 id="metric-score" class="font-headline-md text-3xl font-bold text-primary mt-1 animated-number">0</h3>
+</div>
+</div>
+</section>
+<!-- 3. AI Civic Insight (Featured Highlight) -->
+<section>
+<div class="relative rounded-3xl p-[2px] bg-gradient-to-r from-primary via-tertiary to-primary-container overflow-hidden">
+<div class="glass-panel rounded-[22px] p-6 md:p-8 bg-surface/90 relative overflow-hidden">
+<!-- Background accent -->
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-primary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex items-start gap-5 relative z-10">
+<div class="hidden sm:flex shrink-0 w-12 h-12 bg-surface-container-high rounded-full items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: &quot;FILL&quot; 1;">psychology</span>
+</div>
+<div>
+<h3 class="font-headline-md text-xl font-bold text-on-surface mb-3 flex items-center gap-2">
+<span class="sm:hidden material-symbols-outlined text-primary" style="font-variation-settings: &quot;FILL&quot; 1;">psychology</span>
+                                        Monthly Impact Summary
+                                    </h3>
+<p class="font-body-lg text-on-surface-variant leading-relaxed">
+                                        This month you submitted <strong class="text-on-surface">8 reports</strong>, helped verify <strong class="text-on-surface">15 community issues</strong> and contributed to resolving <strong class="text-on-surface">5 public problems</strong>. Your contribution places you among the <span class="text-gradient font-semibold">top 10% contributors</span> in your locality.
+                                    </p>
+<div class="mt-4 flex gap-3">
+<button class="text-sm font-label-md text-primary hover:text-on-primary-fixed-variant transition-colors flex items-center gap-1">
+                                            View Detailed Analytics <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Sidebar (Insights & Rep) -->
+<aside class="w-full xl:w-[380px] space-y-6 flex-shrink-0">
+<!-- 4. Civic Reputation & Achievements -->
+<div class="glass-panel p-6 rounded-3xl">
+<h3 class="font-label-md font-bold text-on-surface mb-6 uppercase tracking-wider text-xs">Civic Reputation</h3>
+<div class="mb-6">
+<div class="flex justify-between items-end mb-2">
+<div>
+<p class="text-xs text-on-surface-variant mb-1">Current Tier</p>
+<div class="flex items-center gap-2">
+<span class="text-2xl" id="metric-tier-icon">🥈</span>
+<span id="metric-tier" class="font-bold text-on-surface">Newcomer</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs text-on-surface-variant mb-1">Next Tier</p>
+<div class="flex items-center gap-1 opacity-70">
+<span class="text-sm">🥇</span>
+<span class="text-sm font-medium text-on-surface">Hero</span>
+</div>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden relative shadow-inner">
+<div class="absolute top-0 left-0 h-full bg-gradient-to-r from-secondary to-primary-container rounded-full progress-bar-fill w-[70%]"></div>
+</div>
+<p class="text-xs text-right mt-2 text-on-surface-variant font-medium">186 / 250 XP to Next Tier</p>
+</div>
+<hr class="border-outline-variant/30 my-5">
+<h4 class="font-label-md text-sm font-semibold text-on-surface mb-4">Recent Badges</h4>
+<div class="grid grid-cols-3 gap-3">
+<div class="flex flex-col items-center text-center group cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-surface-container border border-outline-variant/50 flex items-center justify-center mb-2 shadow-sm group-hover:shadow-md transition-shadow relative">
+<div class="absolute inset-0 bg-primary/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: &quot;FILL&quot; 1;">local_police</span>
+</div>
+<span class="text-[10px] font-medium leading-tight text-on-surface-variant">Top<br>Verifier</span>
+</div>
+<div class="flex flex-col items-center text-center group cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-surface-container border border-outline-variant/50 flex items-center justify-center mb-2 shadow-sm group-hover:shadow-md transition-shadow relative">
+<div class="absolute inset-0 bg-primary/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-secondary text-2xl" style="font-variation-settings: &quot;FILL&quot; 1;">flag</span>
+</div>
+<span class="text-[10px] font-medium leading-tight text-on-surface-variant">First<br>Report</span>
+</div>
+<div class="flex flex-col items-center text-center group cursor-pointer">
+<div class="w-14 h-14 rounded-full bg-surface-container border border-outline-variant/50 flex items-center justify-center mb-2 shadow-sm group-hover:shadow-md transition-shadow relative">
+<div class="absolute inset-0 bg-primary/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-[#d97706] text-2xl" style="font-variation-settings: &quot;FILL&quot; 1;">workspace_premium</span>
+</div>
+<span class="text-[10px] font-medium leading-tight text-on-surface-variant">7 Day<br>Streak</span>
+</div>
+</div>
+</div>
+<!-- 6. AI Recommendations -->
+<div class="glass-panel p-6 rounded-3xl">
+<h3 class="font-label-md font-bold text-on-surface mb-4 uppercase tracking-wider text-xs">Suggested Next Action</h3>
+<a class="block p-4 rounded-xl bg-surface hover:bg-surface-container-low transition-colors border border-outline-variant/30 group" href="#">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-error-container text-on-error-container rounded-lg shrink-0 mt-1">
+<span class="material-symbols-outlined text-sm">warning</span>
+</div>
+<div>
+<h4 class="font-label-md text-sm font-semibold text-on-surface group-hover:text-primary transition-colors">Verify Road Damage</h4>
+<p class="text-xs text-on-surface-variant mt-1 mb-2">2 reports near you (0.4 km away) require community verification before escalation.</p>
+<span class="text-xs font-medium text-primary flex items-center gap-1">Verify Now <span class="material-symbols-outlined text-[14px]">arrow_forward</span></span>
+</div>
+</div>
+</a>
+</div>
+</aside>
+</main>
+</div>
+<!-- 9. AI Assistant Widget (Floating Bottom Right) -->
+<button class="fixed bottom-6 right-6 md:bottom-8 md:right-8 w-14 h-14 rounded-full bg-primary text-on-primary shadow-lg flex items-center justify-center hover:scale-105 transition-transform z-50 group">
+<span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform duration-300">smart_toy</span>
+<div class="absolute -top-1 -right-1 w-4 h-4 bg-error rounded-full border-2 border-surface"></div>
+</button>
+
+
+  <script src="../app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            const user = await window.CivicDB.getCurrentUser();
+            if (!user) return;
+            const userName = user.name || 'User';
+            document.getElementById('welcome-message').innerText = `Good Morning, ${userName.split(' ')[0]} 👋`;
+            document.getElementById('metric-score').innerText = user.civic_score || 0;
+            document.getElementById('metric-tier').innerText = user.rank || 'Newcomer';
+            document.getElementById('metric-verifications').innerText = user.verifications || 0;
+
+            const rankIcons = {
+              'Community Hero': '👑',
+              'Civic Champion': '🥇',
+              'Active Citizen': '🥈',
+              'Newcomer': '🥉'
+            };
+            document.getElementById('metric-tier-icon').innerText = rankIcons[user.rank] || '🥉';
+
+            const reports = await window.CivicDB.getReports({ user_id: user.id });
+            document.getElementById('metric-reports').innerText = reports.length;
+            
+            const resolvedCount = reports.filter(r => r.status === 'Resolved').length;
+            document.getElementById('metric-resolved').innerText = resolvedCount;
+
+            // TODO: Populate recent reports when we find the container
+        } catch(err) {
+            console.error('Error loading dashboard data:', err);
+        }
+    });
+  </script>
+</body></html>
+

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CivicLens AI — Portal Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script>
+    // Automatically redirect to the landing page first (unless ?portal=true is specified)
+    if (!window.location.search.includes('portal=true')) {
+      window.location.href = './civiclens_ai_landing_page_enhanced_hero/index.html';
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f1fdea;
+      color: #141e13;
+    }
+    .serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 32px 0 rgba(0, 110, 27, 0.03);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.65);
+      border-color: rgba(25, 230, 70, 0.4);
+      box-shadow: 0 20px 40px 0 rgba(0, 110, 27, 0.08);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #006e1b 0%, #19e647 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .glow-blob-1 {
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      border-radius: 50%;
+      background: rgba(25, 230, 70, 0.15);
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .glow-blob-2 {
+      position: absolute;
+      bottom: -10%;
+      right: -10%;
+      width: 40vw;
+      height: 40vw;
+      border-radius: 50%;
+      background: rgba(53, 105, 68, 0.12);
+      filter: blur(150px);
+      pointer-events: none;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden selection:bg-emerald-100 flex flex-col justify-between">
+  
+  <div class="glow-blob-1"></div>
+  <div class="glow-blob-2"></div>
+
+  <header class="max-w-7xl mx-auto w-full px-6 pt-12 pb-6">
+    <div class="flex justify-between items-center border-b border-emerald-900/10 pb-6">
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary text-4xl text-emerald-700" style="font-variation-settings: 'FILL' 1;">eco</span>
+        <div>
+          <h1 class="serif-title text-2xl font-bold tracking-tight text-emerald-950">CivicLens AI</h1>
+          <p class="text-xs text-emerald-800/70 font-medium tracking-wider uppercase">Design & Code Hub</p>
+        </div>
+      </div>
+      <span class="px-4 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1.5 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Local Preview Active
+      </span>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto w-full px-6 py-12 flex-grow">
+    <div class="max-w-3xl mb-12">
+      <h2 class="serif-title text-4xl md:text-5xl font-bold text-emerald-950 leading-tight mb-4">
+        Welcome to the <span class="text-gradient">CivicLens AI</span> Portal
+      </h2>
+      <p class="text-lg text-emerald-900/80 leading-relaxed font-light">
+        Explore high-fidelity interactive screens generated from Stitch design files. Each screen utilizes the cohesive <strong>Eco-Sophisticate</strong> design tokens, layouts, and typography.
+      </p>
+    </div>
+
+    <!-- Screen Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Card 1 -->
+      <a href="./civiclens_ai_landing_page_enhanced_hero/index.html" class="glass-card rounded-3xl p-6 flex flex-col justify-between group h-full">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+            <span class="material-symbols-outlined text-2xl">home_app_logo</span>
+          </div>
+          <h3 class="serif-title text-2xl font-bold text-emerald-950 mb-2">Enhanced Hero Landing Page</h3>
+          <p class="text-emerald-900/70 text-sm leading-relaxed mb-6">
+            The primary homepage introduction to CivicLens AI, highlighting core features, brand mission, and user calls-to-action.
+          </p>
+        </div>
+        <div class="flex items-center text-emerald-700 font-semibold text-sm group-hover:translate-x-2 transition-transform duration-300">
+          Launch Screen <span class="material-symbols-outlined ml-1.5 text-base">arrow_forward</span>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="./civiclens_ai_explore_community_issues/index.html" class="glass-card rounded-3xl p-6 flex flex-col justify-between group h-full">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+            <span class="material-symbols-outlined text-2xl">explore</span>
+          </div>
+          <h3 class="serif-title text-2xl font-bold text-emerald-950 mb-2">Explore Community Issues</h3>
+          <p class="text-emerald-900/70 text-sm leading-relaxed mb-6">
+            Interactive map view and listings showing user-submitted community reports, geo-markers, and active routing status.
+          </p>
+        </div>
+        <div class="flex items-center text-emerald-700 font-semibold text-sm group-hover:translate-x-2 transition-transform duration-300">
+          Launch Screen <span class="material-symbols-outlined ml-1.5 text-base">arrow_forward</span>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="./civiclens_ai_leaderboard_annotated_updates/index.html" class="glass-card rounded-3xl p-6 flex flex-col justify-between group h-full">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+            <span class="material-symbols-outlined text-2xl">leaderboard</span>
+          </div>
+          <h3 class="serif-title text-2xl font-bold text-emerald-950 mb-2">Community Leaderboard</h3>
+          <p class="text-emerald-900/70 text-sm leading-relaxed mb-6">
+            Presents top-contributing neighborhood citizens, points systems, badges, and detailed profiles to gamify civic involvement.
+          </p>
+        </div>
+        <div class="flex items-center text-emerald-700 font-semibold text-sm group-hover:translate-x-2 transition-transform duration-300">
+          Launch Screen <span class="material-symbols-outlined ml-1.5 text-base">arrow_forward</span>
+        </div>
+      </a>
+
+      <!-- Card 4 -->
+      <a href="./civiclens_ai_municipality_operations_dashboard_demo/index.html" class="glass-card rounded-3xl p-6 flex flex-col justify-between group h-full">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+            <span class="material-symbols-outlined text-2xl">admin_panel_settings</span>
+          </div>
+          <h3 class="serif-title text-2xl font-bold text-emerald-950 mb-2">Municipality Ops Dashboard</h3>
+          <p class="text-emerald-900/70 text-sm leading-relaxed mb-6">
+            The operational dashboard view for city planners, featuring issue queue routing, severity analysis, and civic agency assignment.
+          </p>
+        </div>
+        <div class="flex items-center text-emerald-700 font-semibold text-sm group-hover:translate-x-2 transition-transform duration-300">
+          Launch Screen <span class="material-symbols-outlined ml-1.5 text-base">arrow_forward</span>
+        </div>
+      </a>
+
+      <!-- Card 5 -->
+      <a href="./civiclens_ai_my_active_reports_with_sidebar/index.html" class="glass-card rounded-3xl p-6 flex flex-col justify-between group h-full">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+            <span class="material-symbols-outlined text-2xl">grid_view</span>
+          </div>
+          <h3 class="serif-title text-2xl font-bold text-emerald-950 mb-2">My Active Reports</h3>
+          <p class="text-emerald-900/70 text-sm leading-relaxed mb-6">
+            Personal panel listing all issues reported by the authenticated user, tracking updates, and showing a collapsible sidebar.
+          </p>
+        </div>
+        <div class="flex items-center text-emerald-700 font-semibold text-sm group-hover:translate-x-2 transition-transform duration-300">
+          Launch Screen <span class="material-symbols-outlined ml-1.5 text-base">arrow_forward</span>
+        </div>
+      </a>
+
+      <!-- Card 6 -->
+      <a href="./civiclens_ai_user_dashboard/index.html" class="glass-card rounded-3xl p-6 flex flex-col justify-between group h-full">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+            <span class="material-symbols-outlined text-2xl">account_circle</span>
+          </div>
+          <h3 class="serif-title text-2xl font-bold text-emerald-950 mb-2">User Profile & Dashboard</h3>
+          <p class="text-emerald-900/70 text-sm leading-relaxed mb-6">
+            Citizen workspace containing active badges, stats (impact points, verification score), and quick links to submit reports.
+          </p>
+        </div>
+        <div class="flex items-center text-emerald-700 font-semibold text-sm group-hover:translate-x-2 transition-transform duration-300">
+          Launch Screen <span class="material-symbols-outlined ml-1.5 text-base">arrow_forward</span>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <footer class="max-w-7xl mx-auto w-full px-6 py-8 border-t border-emerald-900/10 text-center text-sm text-emerald-900/50">
+    <p>© 2026 CivicLens AI. Crafted and previewed locally.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,24 @@
+node_modules
+.env
+*.md
+*.log
+*.png
+*.webp
+*.jpg
+*.jpeg
+
+# Frontend pages — not needed in backend container
+civiclens_ai_landing_page_enhanced_hero/
+civiclens_ai_user_dashboard/
+civiclens_ai_explore_community_issues/
+civiclens_ai_leaderboard_annotated_updates/
+civiclens_ai_my_active_reports_with_sidebar/
+civiclens_ai_municipality_operations_dashboard_demo/
+civiclens_ai_report_issue/
+
+# Config and tooling
+.firebaserc
+firebase.json
+deploy.bat
+deploy.sh
+.dockerignore

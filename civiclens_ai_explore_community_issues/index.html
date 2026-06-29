@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html class="light" lang="en" style="">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Explore Issues - CivicLens AI</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-low": "#ecf7e5",
+            "secondary-fixed": "#99f894",
+            "on-secondary": "#ffffff",
+            "error-container": "#ffdad6",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "on-error-container": "#93000a",
+            "surface": "#f1fdea",
+            "surface-bright": "#f1fdea",
+            "inverse-primary": "#16e546",
+            "on-surface-variant": "#3c4b39",
+            "tertiary-fixed-dim": "#9cd4a6",
+            "on-tertiary-container": "#295d39",
+            "surface-dim": "#d2ddcc",
+            "primary-fixed": "#71ff75",
+            "primary": "#006e1b",
+            "outline": "#6c7b67",
+            "on-background": "#141e13",
+            "on-primary-fixed": "#002204",
+            "tertiary-container": "#9cd4a7",
+            "on-secondary-container": "#0c7320",
+            "secondary-container": "#97f592",
+            "tertiary": "#356944",
+            "error": "#ba1a1a",
+            "primary-container": "#19e647",
+            "on-secondary-fixed": "#002204",
+            "on-primary-fixed-variant": "#005312",
+            "on-primary-container": "#006117",
+            "surface-container-highest": "#dae6d4",
+            "surface-variant": "#dae6d4",
+            "surface-tint": "#006e1b",
+            "on-primary": "#ffffff",
+            "inverse-surface": "#293327",
+            "on-surface": "#141e13",
+            "on-error": "#ffffff",
+            "surface-container": "#e6f1df",
+            "inverse-on-surface": "#e9f4e2",
+            "tertiary-fixed": "#b7f0c1",
+            "secondary": "#026e1c",
+            "outline-variant": "#bacbb4",
+            "primary-fixed-dim": "#16e546",
+            "on-tertiary-fixed": "#00210c",
+            "surface-container-high": "#e0ecda",
+            "on-tertiary-fixed-variant": "#1c502e",
+            "on-secondary-fixed-variant": "#005312",
+            "background": "#f1fdea",
+            "secondary-fixed-dim": "#7edb7b"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "xl": "80px",
+            "base": "8px",
+            "xs": "4px",
+            "sm": "12px",
+            "md": "24px",
+            "lg": "48px"
+          },
+          "fontFamily": {
+            "headline-lg": [
+              "Playfair Display"
+            ],
+            "label-md": [
+              "Inter"
+            ],
+            "headline-md": [
+              "Playfair Display"
+            ],
+            "body-lg": [
+              "Inter"
+            ],
+            "body-md": [
+              "Inter"
+            ]
+          },
+          "fontSize": {
+            "headline-lg": [
+              "40px",
+              {
+                "lineHeight": "1.2",
+                "fontWeight": "700"
+              }
+            ],
+            "label-md": [
+              "14px",
+              {
+                "lineHeight": "1.4",
+                "letterSpacing": "0.02em",
+                "fontWeight": "500"
+              }
+            ],
+            "headline-md": [
+              "32px",
+              {
+                "lineHeight": "1.3",
+                "fontWeight": "600"
+              }
+            ],
+            "body-lg": [
+              "18px",
+              {
+                "lineHeight": "1.6",
+                "fontWeight": "400"
+              }
+            ],
+            "body-md": [
+              "16px",
+              {
+                "lineHeight": "1.5",
+                "fontWeight": "400"
+              }
+            ]
+          }
+        },
+      }
+    }
+  </script>
+  <style>
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 30px rgba(0, 110, 27, 0.05);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 32px rgba(0, 110, 27, 0.08);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../frontend_config.js"></script>
+</head>
+
+<body
+  class="bg-background text-on-surface min-h-screen flex flex-col font-body-md selection:bg-primary-container selection:text-on-primary-container relative">
+  <!-- SideNavBar (Unified Sidebar Component) -->
+  <aside
+    class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-dim shadow-none py-md px-sm border-r border-outline-variant/30 z-40">
+    <div class="flex items-center gap-3 px-4 mb-xl mt-4">
+      <span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+      <div>
+        <h1 class="font-headline-md text-[20px] font-bold text-on-surface leading-tight">CivicLens AI</h1>
+        <p class="font-label-md text-xs text-on-surface-variant">Premium SaaS Platform</p>
+      </div>
+    </div>
+    <div class="flex-1 space-y-2">
+      
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_user_dashboard/index.html">
+        <span class="material-symbols-outlined" style="">dashboard</span>
+        <span class="font-label-md">Dashboard</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all bg-primary text-white font-bold shadow-sm shadow-primary/20"
+        href="../civiclens_ai_explore_community_issues/index.html">
+        <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">explore</span>
+        <span class="font-label-md">Explore Issues</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_leaderboard_annotated_updates/index.html">
+        <span class="material-symbols-outlined" style="">leaderboard</span>
+        <span class="font-label-md">Leaderboard</span>
+      </a>
+
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/50 duration-200"
+        href="../civiclens_ai_my_active_reports_with_sidebar/index.html">
+        <span class="material-symbols-outlined" style="">assignment</span>
+        <span class="font-label-md">Active Reports</span>
+      </a>
+    </div>
+    <div class="mt-auto space-y-4 mb-4">
+      <div class="border-t border-outline-variant/30 pt-4 space-y-1">
+        <a class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 transition-colors duration-200 rounded-xl"
+          href="#">
+          <span class="material-symbols-outlined text-sm">help</span>
+          <span class="font-label-md text-sm">Help Center</span>
+        </a>
+        <a id="logout-sidebar-btn" class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:bg-surface-variant/50 transition-colors duration-200 rounded-xl"
+          href="../civiclens_ai_landing_page_enhanced_hero/index.html">
+          <span class="material-symbols-outlined text-sm">logout</span>
+          <span class="font-label-md text-sm">Log Out</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+  
+  <!-- Main Content -->
+  <main class="flex-1 md:ml-64 max-w-5xl mx-auto w-full px-md pb-xl flex flex-col gap-md pt-lg">
+    <!-- Left Column: Header, Filters, Feed -->
+    <div class="flex flex-col gap-lg w-full">
+      <!-- Header Section -->
+      <section class="flex flex-col gap-sm">
+        <h1 class="font-headline-lg text-headline-lg text-on-surface">Explore Community Issues</h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Discover, verify and support civic issues
+          reported by people in your community.</p>
+        <div class="mt-md relative w-full max-w-3xl group">
+          <div class="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
+            <span
+              class="material-symbols-outlined text-primary text-2xl group-focus-within:text-primary transition-colors">search</span>
+          </div>
+          <input
+            class="w-full pl-14 pr-6 py-4 rounded-full glass-panel font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none transition-all placeholder:text-outline"
+            placeholder="Search for issues, neighborhoods, or keywords..." type="text">
+        </div>
+        <!-- Filter Chips -->
+
+
+      </section>
+      <!-- Map Section -->
+
+      <!-- Feed Section -->
+      <section class="flex flex-col gap-md">
+        <div class="flex items-center justify-between border-b border-surface-container-highest pb-sm">
+          <h2 class="font-headline-md text-headline-md text-on-surface text-[24px]">Recent Issues</h2>
+
+        </div>
+        <div id="reports-feed" class="flex flex-col gap-md"></div>
+      </section>
+    </div>
+
+  </main>
+  <!-- Floating Action Button -->
+
+  <!-- Footer -->
+  <footer
+    class="w-full py-lg px-md flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-lowest dark:bg-surface-dim full-width rounded-t-xl bg-surface-container-high dark:bg-surface-container-highest flat no shadows mt-xl relative z-10">
+    <div class="flex items-center gap-sm">
+      <span class="font-headline-sm text-headline-sm text-primary font-bold">CivicLens AI</span>
+      <span
+        class="font-body-md text-body-md text-secondary dark:text-secondary-fixed ml-4 border-l border-outline-variant pl-4">
+        © 2024 CivicLens AI. Empowering sustainable communities.
+      </span>
+    </div>
+    <div class="flex items-center gap-md">
+      <a class="text-on-surface-variant dark:text-outline-variant font-label-md text-label-md hover:text-secondary dark:hover:text-secondary-fixed underline transition-all opacity-80 hover:opacity-100"
+        href="#">
+        Privacy
+      </a>
+      <a class="text-on-surface-variant dark:text-outline-variant font-label-md text-label-md hover:text-secondary dark:hover:text-secondary-fixed underline transition-all opacity-80 hover:opacity-100"
+        href="#">
+        Terms
+      </a>
+      <a class="text-on-surface-variant dark:text-outline-variant font-label-md text-label-md hover:text-secondary dark:hover:text-secondary-fixed underline transition-all opacity-80 hover:opacity-100"
+        href="#">
+        Contact
+      </a>
+    </div>
+  </footer>
+
+
+  <script src="../app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const user = await window.CivicDB.getCurrentUser();
+        const allReports = await window.CivicDB.getReports();
+        const feedContainer = document.getElementById('reports-feed');
+        
+        const renderFeed = () => {
+          feedContainer.innerHTML = '';
+          const exploreReports = user ? allReports.filter(r => r.user_id !== user.id) : allReports;
+          
+          if (exploreReports.length === 0) {
+            feedContainer.innerHTML = '<p class="text-on-surface-variant p-4">No community issues to explore right now.</p>';
+            return;
+          }
+          
+          exploreReports.forEach(r => {
+            const confidence = r.confidence ? Math.round(r.confidence * 100) : 90;
+            const supportCount = r.support_count || 0;
+            const deniedCount = r.denied_count || 0;
+            const totalVerifications = supportCount + deniedCount || 1;
+            const supportPct = Math.round((supportCount / totalVerifications) * 100);
+            const denyPct = Math.round((deniedCount / totalVerifications) * 100);
+            
+            const isVerified = r.status === 'Community Verified' || r.status === 'Resolved' || r.status === 'In Progress';
+            
+            const card = document.createElement('article');
+            card.className = "glass-card rounded-xl p-md flex flex-col gap-md mb-4 transition-opacity";
+            if (r.status === 'Rejected') card.classList.add('opacity-50');
+            
+            card.innerHTML = `
+              <div class="bg-surface-container-low rounded-lg p-sm border border-primary/20 flex flex-wrap items-center justify-between gap-sm">
+                <div class="flex items-center gap-2 text-primary font-label-md text-label-md">
+                  <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">psychology</span>
+                  <span>AI Analysis</span>
+                </div>
+                <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                  <span class="text-on-surface-variant"><strong class="text-on-surface">Category:</strong> ${r.category || 'General'}</span>
+                  <span class="text-error"><strong class="text-on-surface">Severity:</strong> ${r.severity || 'Medium'}</span>
+                </div>
+                <div class="${confidence < 50 ? 'bg-error-container text-on-error-container' : 'bg-primary-container text-on-primary-container'} px-3 py-1 rounded-full font-label-md text-xs font-bold">
+                  Confidence: ${confidence}%
+                </div>
+              </div>
+              
+              <div class="flex flex-col md:flex-row gap-md">
+                <div class="w-full md:w-1/3 aspect-[4/3] rounded-lg overflow-hidden relative shadow-sm">
+                  <img class="w-full h-full object-cover" src="${r.image_url || 'https://via.placeholder.com/400x300?text=No+Image'}" alt="${r.title}">
+                  <div class="absolute top-2 right-2 bg-surface/80 backdrop-blur px-2 py-1 rounded-md text-xs font-medium text-on-surface flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">location_on</span> Near you
+                  </div>
+                </div>
+                <div class="w-full md:w-2/3 flex flex-col justify-between gap-sm">
+                  <div>
+                    <h3 class="font-headline-md text-headline-md text-on-surface text-[22px] leading-tight mb-2">${r.title}</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-4">${r.description || ''}</p>
+                    <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+                      <span class="">Reported on ${new Date(r.created_at).toLocaleDateString()}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="pt-sm border-t border-surface-container-highest flex flex-col md:flex-row items-start md:items-center justify-between gap-md mt-sm">
+                <div class="flex flex-col gap-1 w-full md:w-1/3">
+                  <span class="text-xs text-on-surface-variant font-medium">Community Verification</span>
+                  <div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden flex">
+                    <div class="h-full bg-primary" style="width: ${supportPct}%"></div>
+                    <div class="h-full bg-error" style="width: ${denyPct}%"></div>
+                  </div>
+                  <div class="flex justify-between text-[11px] text-on-surface-variant mt-1">
+                    <span class="text-primary font-medium">Verified by ${supportCount}</span>
+                    <span class="text-error">Denied by ${deniedCount}</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-sm w-full md:w-auto justify-end">
+                  ${isVerified ? `
+                    <span class="text-primary font-bold flex items-center gap-1"><span class="material-symbols-outlined">verified</span> Verified</span>
+                  ` : `
+                    <button class="btn-deny px-4 py-2 rounded-full border-2 border-outline text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors" data-id="${r.id}">
+                      Couldn't Verify
+                    </button>
+                    <button class="btn-verify px-5 py-2.5 rounded-full bg-primary text-on-primary font-label-md text-label-md hover:bg-surface-tint transition-colors shadow-md hover:shadow-lg flex items-center gap-2" data-id="${r.id}">
+                      <span class="material-symbols-outlined text-sm">verified</span> Verify Issue
+                    </button>
+                  `}
+                </div>
+              </div>
+            `;
+            feedContainer.appendChild(card);
+          });
+          
+          document.querySelectorAll('.btn-verify').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+              if(!user) return alert('Please login first');
+              const reportId = e.currentTarget.getAttribute('data-id');
+              await window.CivicDB.verifyReport(reportId, true);
+              alert('+4 Civic Score for verifying!');
+              window.location.reload();
+            });
+          });
+          
+          document.querySelectorAll('.btn-deny').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+              if(!user) return alert('Please login first');
+              const reportId = e.currentTarget.getAttribute('data-id');
+              await window.CivicDB.verifyReport(reportId, false);
+              alert('Marked as couldn\'t verify. +4 Civic Score for your contribution.');
+              window.location.reload();
+            });
+          });
+        };
+        
+        renderFeed();
+      } catch(err) {
+        console.error('Error loading explore feed:', err);
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Sign In - CivicLens AI</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary": "#356944",
+            "primary": "#006e1b",
+            "on-secondary-fixed-variant": "#005312",
+            "on-tertiary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-background": "#141e13",
+            "on-tertiary-fixed-variant": "#1c502e",
+            "outline": "#6c7b67",
+            "on-error-container": "#93000a",
+            "surface-container-lowest": "#ffffff",
+            "surface-container": "#e6f1df",
+            "inverse-surface": "#293327",
+            "surface-variant": "#dae6d4",
+            "on-surface": "#141e13",
+            "surface-container-low": "#ecf7e5",
+            "on-primary-fixed-variant": "#005312",
+            "surface-container-highest": "#dae6d4",
+            "on-primary-fixed": "#002204",
+            "on-primary": "#ffffff",
+            "tertiary-container": "#9cd4a7",
+            "on-primary-container": "#006117",
+            "error-container": "#ffdad6",
+            "background": "#f1fdea",
+            "tertiary-fixed-dim": "#9cd4a6",
+            "surface-tint": "#006e1b",
+            "on-secondary-container": "#0c7320",
+            "surface-bright": "#f1fdea",
+            "error": "#ba1a1a",
+            "inverse-primary": "#16e546",
+            "secondary": "#026e1c",
+            "on-surface-variant": "#3c4b39",
+            "primary-fixed": "#71ff75",
+            "outline-variant": "#bacbb4",
+            "secondary-fixed-dim": "#7edb7b",
+            "secondary-fixed": "#99f894",
+            "on-secondary-fixed": "#002204",
+            "on-tertiary-fixed": "#00210c",
+            "surface-dim": "#d2ddcc",
+            "tertiary-fixed": "#b7f0c1"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 32px 0 rgba(0, 110, 27, 0.06);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../frontend_config.js"></script>
+  <script src="../app.js"></script>
+</head>
+
+<body class="bg-background text-on-surface font-sans antialiased min-h-screen flex items-center justify-center relative overflow-hidden px-4">
+  <!-- Decorative background blobs -->
+  <div class="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-primary-container/20 blur-[150px] pointer-events-none"></div>
+  <div class="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-tertiary-container/20 blur-[150px] pointer-events-none"></div>
+
+  <div class="w-full max-w-md glass-panel p-8 rounded-xl z-10 transition-all duration-300">
+    <div class="flex flex-col items-center mb-6">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="material-symbols-outlined text-primary text-4xl">psychology</span>
+        <h1 class="font-serif text-3xl font-bold text-on-surface">CivicLens AI</h1>
+      </div>
+      <p class="text-on-surface-variant text-sm">AI-Powered Civic Issue Reporting</p>
+    </div>
+
+    <!-- Tab selection -->
+    <div class="flex bg-surface-container/60 p-1 rounded-full mb-6">
+      <button id="tab-login" class="flex-1 py-2 text-sm font-semibold rounded-full bg-white text-primary shadow-sm transition-all">Sign In</button>
+      <button id="tab-signup" class="flex-1 py-2 text-sm font-semibold rounded-full text-on-surface-variant hover:text-on-surface transition-all">Sign Up</button>
+    </div>
+
+    <!-- Error container -->
+    <div id="error-alert" class="hidden p-4 mb-4 bg-error-container text-on-error-container rounded-lg text-sm border border-error/20"></div>
+
+    <!-- Login Form -->
+    <form id="auth-form" class="space-y-4">
+      <div id="name-group" class="hidden space-y-1">
+        <label for="reg-name" class="block text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Full Name</label>
+        <input id="reg-name" type="text" placeholder="John Doe"
+          class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-white/70 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+      </div>
+
+      <div id="address-group" class="hidden space-y-1">
+        <label for="reg-address" class="block text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Address</label>
+        <input id="reg-address" type="text" placeholder="123 Civic Way"
+          class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-white/70 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+      </div>
+
+      <div id="location-group" class="hidden space-y-1">
+        <label class="flex items-center gap-2 cursor-pointer text-sm text-on-surface-variant">
+          <input type="checkbox" id="reg-location" class="rounded border-outline-variant text-primary focus:ring-primary">
+          <span>Grant location access to automatically tag issues</span>
+        </label>
+      </div>
+
+      <div class="space-y-1">
+        <label for="email" class="block text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Email Address</label>
+        <input id="email" type="email" required placeholder="name@domain.com"
+          class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-white/70 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+      </div>
+
+      <div class="space-y-1">
+        <label for="password" class="block text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Password</label>
+        <input id="password" type="password" required placeholder="••••••••"
+          class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-white/70 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+      </div>
+
+      <button id="submit-btn" type="submit"
+        class="w-full py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary/95 hover:shadow-lg transition-all text-sm flex items-center justify-center gap-2">
+        <span>Sign In</span>
+        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+      </button>
+    </form>
+
+    <div class="relative my-6">
+      <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-outline-variant/50"></div></div>
+      <div class="relative flex justify-center text-xs uppercase"><span class="bg-transparent px-2 text-on-surface-variant">Hackathon Access</span></div>
+    </div>
+
+    <!-- Judge Bypass -->
+    <button id="bypass-btn" class="w-full py-3 bg-secondary text-white rounded-full font-semibold hover:bg-secondary/95 hover:shadow-md transition-all text-sm flex items-center justify-center gap-2">
+      <span class="material-symbols-outlined">shield_person</span>
+      <span>Judge Bypass: Sign In as Guest</span>
+    </button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabLogin = document.getElementById('tab-login');
+      const tabSignup = document.getElementById('tab-signup');
+      const nameGroup = document.getElementById('name-group');
+      const addressGroup = document.getElementById('address-group');
+      const locationGroup = document.getElementById('location-group');
+      const submitBtn = document.getElementById('submit-btn');
+      const errorAlert = document.getElementById('error-alert');
+      const authForm = document.getElementById('auth-form');
+      const bypassBtn = document.getElementById('bypass-btn');
+
+      let isSignUp = false;
+
+      // Tab switcher
+      tabLogin.addEventListener('click', () => {
+        if (!isSignUp) return;
+        isSignUp = false;
+        tabLogin.className = 'flex-1 py-2 text-sm font-semibold rounded-full bg-white text-primary shadow-sm transition-all';
+        tabSignup.className = 'flex-1 py-2 text-sm font-semibold rounded-full text-on-surface-variant hover:text-on-surface transition-all';
+        nameGroup.classList.add('hidden');
+        addressGroup.classList.add('hidden');
+        locationGroup.classList.add('hidden');
+        submitBtn.querySelector('span').innerText = 'Sign In';
+        document.getElementById('reg-name').removeAttribute('required');
+        errorAlert.classList.add('hidden');
+      });
+
+      tabSignup.addEventListener('click', () => {
+        if (isSignUp) return;
+        isSignUp = true;
+        tabSignup.className = 'flex-1 py-2 text-sm font-semibold rounded-full bg-white text-primary shadow-sm transition-all';
+        tabLogin.className = 'flex-1 py-2 text-sm font-semibold rounded-full text-on-surface-variant hover:text-on-surface transition-all';
+        nameGroup.classList.remove('hidden');
+        addressGroup.classList.remove('hidden');
+        locationGroup.classList.remove('hidden');
+        submitBtn.querySelector('span').innerText = 'Sign Up';
+        document.getElementById('reg-name').setAttribute('required', 'true');
+        errorAlert.classList.add('hidden');
+      });
+
+      // Show error helper
+      function showError(msg) {
+        errorAlert.innerText = msg;
+        errorAlert.classList.remove('hidden');
+      }
+
+      // Handle Authentication Submit
+      authForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorAlert.classList.add('hidden');
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const name = document.getElementById('reg-name').value.trim();
+        const address = document.getElementById('reg-address') ? document.getElementById('reg-address').value.trim() : '';
+        const locationGranted = document.getElementById('reg-location') ? document.getElementById('reg-location').checked : false;
+
+        try {
+          if (isSignUp) {
+            await window.CivicDB.signUp(email, password, name, address, locationGranted);
+          } else {
+            await window.CivicDB.login(email, password);
+          }
+          // Redirect on success
+          window.location.href = '../civiclens_ai_user_dashboard/index.html';
+        } catch (err) {
+          showError(err.message || 'Authentication failed. Please verify credentials.');
+        }
+      });
+
+      // Handle Judge Bypass
+      bypassBtn.addEventListener('click', async () => {
+        localStorage.setItem('civicdb_forceMock', 'true');
+        window.CivicDB.isMock = true;
+        try {
+          // Attempt default guest login
+          await window.CivicDB.login('guest@civiclens.ai', 'Password123');
+          window.location.href = '../civiclens_ai_user_dashboard/index.html';
+        } catch (err) {
+          // If Guest account doesn't exist, sign up guest account
+          try {
+            await window.CivicDB.signUp('guest@civiclens.ai', 'Password123', 'Guest Judge');
+            window.location.href = '../civiclens_ai_user_dashboard/index.html';
+          } catch (signUpErr) {
+            showError('Bypass failed: ' + signUpErr.message);
+          }
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
